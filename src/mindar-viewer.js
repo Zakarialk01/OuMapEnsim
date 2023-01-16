@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import map from "./assets/myMap.jpg";
 import hellboy from "./assets/hellboy.glb";
 import flag from "./assets/flag.glb";
+import person from './person.json';
+
 
 //cette fontionnalité va déclencher quand on active le mode AR et ça met à jour chaque 5s avec de nouvelles données (3 axes X,Y,Z)
 const ModeViewAR = (props) => {
@@ -16,6 +18,9 @@ const ModeViewAR = (props) => {
   const [x2, setX2] = useState(0);
   const [y2, setY2] = useState(0);
   const [z2, setZ2] = useState(0);
+
+  var height = 2;
+  var width = 3 ;
 
   var xx1 = -1.5;
   var yy1;
@@ -45,6 +50,7 @@ const ModeViewAR = (props) => {
       [arSystem]
     );
 
+
     return () => {
       arSystem.stop();
       clearInterval(timer);
@@ -63,24 +69,23 @@ const ModeViewAR = (props) => {
   // ];
   useEffect(() => {
     let incrementTime = 5000;
-    let timer = setInterval(() => {
+    timer = setInterval(() => {
       var min = 0;
       var max = 1;
       var rand = min + Math.random() * (max - min);
       var xx2 = -1.5;
       //mettre à jour les values en utilisant state
      
-      setX1(xx2);
+      setX1(xx1);
       // setY1(y1 + 0.01);
       // setZ1(z1 + 0.01);
-      xx2 = xx2 + 0.1;
-      setX2(xx2);
-      xx2 = xx2 + 0.1;
+      xx1 = xx1 + 0.1;
+      setX2(xx1);
       // setY2(y1 + 0.02);
       // setZ2(z1 + 0.02);
 
-      console.log(`after 5s x1 ${x1} ${y1} ${z1} ${rand}`);
-      console.log(`after 5s x2 ${x2} ${y1} ${z1}`);
+      // console.log(`after 5s x1 ${x1} ${y1} ${z1} ${rand}`);
+      // console.log(`after 5s x2 ${x2} ${y1} ${z1}`);
 
       //garder des valeurs anciennes
 
@@ -93,7 +98,17 @@ const ModeViewAR = (props) => {
 
   var speed = 5000;
 
+  {person.data.map((record) => {
+    {
+      return (
+        console.log(`${((Math.PI*record.pos.lng / 180) *3/2).toFixed(3)} ${((Math.PI*record.pos.lat /180) * 2/2).toFixed(3)} 0.5`)
+      
+      );
+    }
+  })}
+  
   return (
+    
     <a-scene
       ref={sceneRef}
       mindar-image="imageTargetSrc: mundo.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
@@ -118,12 +133,12 @@ const ModeViewAR = (props) => {
         <a-plane
           src="#card"
           position="0 0 0"
-          height="2"
-          width="3"
+          height="2" //y
+          width="3" //x
           rotation="0 0 0"
         ></a-plane>
 
-       {/* afficher les flags pour déterminer des points intérets */}
+        {/* afficher les flags pour déterminer des points intérets */}
         <a-gltf-model
           rotation="0 270 0 "
           position="-1.5 0 0.1"
@@ -147,7 +162,7 @@ const ModeViewAR = (props) => {
         ></a-gltf-model>
 
         {/* Pour afficher le trajet à réaliser par des  */}
-        <a-entity 
+        <a-entity
           line="start: -1.5 0 0.1; end: -1.25 -0.15 0.1; color: red;"
           line__2="start: -1.25 -0.15 0.1; end: -1.05 -0.35 0.1; color: red"
           line__3="start: -1.05 -0.35 0.1; end: -0.05 -0.75 0.1; color: red"
@@ -156,18 +171,30 @@ const ModeViewAR = (props) => {
           line__6="start: 0.25 0.75 0.1; end: 0.35 0.875 0.1; color: red"
           line__7="start: 0.35 0.875 0.1; end: 1.0 0.675 0.1; color: red"
           line__8="start: 1.0 0.675 0.1; end: 1.5 0.675 0.1; color: red"
-          >
-        </a-entity>
-
+        ></a-entity>
 
         {/* perso 1 */}
-        <a-gltf-model
+        {/* <a-gltf-model
           rotation="0 0 0 "
           position="-1 0 0.5"
           scale="0.3 0.3 0.3"
           src="#avatarModel"
           animation={`property: position; from: ${x1} ${y1} ${z1} ; to: ${x2} ${y2} ${z2};dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
-        ></a-gltf-model>
+        ></a-gltf-model> */}
+
+        {person.data.map((record) => {
+          {
+            return (
+              <a-gltf-model
+                rotation="0 0 0"
+                position={`${((Math.PI*record.pos.lng / 180) *3/2).toFixed(3)} ${((Math.PI*record.pos.lat / 180) * 2/2).toFixed(3)} 0.5`}
+                scale="0.1 0.1 0.1"
+                src="#avatarModel"
+                // animation={`property: position; from: ${x1} ${y1} ${z1} ; to: ${x2} ${y2} ${z2};dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
+              ></a-gltf-model>
+            );
+          }
+        })}
 
         {/* perso 2 */}
         {/* <a-gltf-model

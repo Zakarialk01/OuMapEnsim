@@ -5,6 +5,7 @@ import 'mind-ar/dist/mindar-image-aframe.prod.js';
 import './App.css';
 import ModeViewAR from "./mindar-viewer";
 
+
 function App() {
   const [started, setStarted] = useState(false);
   const [x, setX] = useState(1);
@@ -59,7 +60,7 @@ function App() {
           MindAR
         </a>
       </h1>
-
+      
       <div>
         {/* {!started && <button onClick={() => {setStarted(true)}}>Start</button>} */}
         {!started && <button onClick={changeValue}>Start</button>}
