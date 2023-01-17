@@ -212,6 +212,6 @@ const ModeViewAR = (props) => {
       </a-entity>
     </a-scene>
   );
-};
+}; 
 
 export default ModeViewAR;
