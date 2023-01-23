@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import map from "./assets/myMap.jpg";
 import hellboy from "./assets/hellboy.glb";
 import flag from "./assets/flag.glb";
@@ -7,6 +7,11 @@ import person from './person.json';
 
 //cette fontionnalité va déclencher quand on active le mode AR et ça met à jour chaque 5s avec de nouvelles données (3 axes X,Y,Z)
 const ModeViewAR = (props) => {
+  const handleClick = useCallback(() => {
+    console.log('object clicked!');
+  },[]);
+
+
   const sceneRef = useRef(null);
   //6 properties old X,Y,Z and new X,Y,Z
   const { newdX, newdY, newdZ, olddX, olddY, olddZ } = props;
@@ -101,17 +106,17 @@ const ModeViewAR = (props) => {
   {person.data.map((record) => {
     {
       return (
-        console.log(`${((Math.PI*record.pos.lng / 180) *3/2).toFixed(3)} ${((Math.PI*record.pos.lat /180) * 2/2).toFixed(3)} 0.5`)
+        console.log(`${((Math.PI*record.pos.lng / 180) *3/2 +1 ).toFixed(3)} ${((Math.PI*record.pos.lat /180) * 2/2 + 1).toFixed(3)} 0.5`)
       
       );
     }
   })}
-  
+
   return (
     
     <a-scene
       ref={sceneRef}
-      mindar-image="imageTargetSrc: mundo.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
+      mindar-image="imageTargetSrc: map.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no;"
       color-space="sRGB"
       embedded
       renderer="colorManagement: true, physicallyCorrectLights"
@@ -163,14 +168,25 @@ const ModeViewAR = (props) => {
 
         {/* Pour afficher le trajet à réaliser par des  */}
         <a-entity
-          line="start: -1.5 0 0.1; end: -1.25 -0.15 0.1; color: red;"
-          line__2="start: -1.25 -0.15 0.1; end: -1.05 -0.35 0.1; color: red"
-          line__3="start: -1.05 -0.35 0.1; end: -0.05 -0.75 0.1; color: red"
-          line__4="start: -0.05 -0.75 0.1; end: 0.15 -0.75 0.1; color: red"
-          line__5="start:  0.15 -0.75 0.1; end: 0.25 0.75 0.1; color: red"
-          line__6="start: 0.25 0.75 0.1; end: 0.35 0.875 0.1; color: red"
-          line__7="start: 0.35 0.875 0.1; end: 1.0 0.675 0.1; color: red"
-          line__8="start: 1.0 0.675 0.1; end: 1.5 0.675 0.1; color: red"
+          line="start: -1.5 0 0.1; end: -1.25 -0.15 0.1; color: green;"
+          line__2="start: -1.25 -0.15 0.1; end: -1.05 -0.35 0.1; color: green"
+          line__3="start: -1.05 -0.35 0.1; end: -0.05 -0.75 0.1; color: green"
+          line__4="start: -0.05 -0.75 0.1; end: 0.15 -0.75 0.1; color: green"
+          line__5="start:  0.15 -0.75 0.1; end: 0.25 0.75 0.1; color: green"
+          line__6="start: 0.25 0.75 0.1; end: 0.35 0.875 0.1; color: green"
+          line__7="start: 0.35 0.875 0.1; end: 1.0 0.675 0.1; color: green"
+          line__8="start: 1.0 0.675 0.1; end: 1.5 0.675 0.1; color: green"
+        ></a-entity>
+
+        <a-entity
+          line="start: -1.5 0 0.1; end: -1.25 0.25 0.1; color: red; linewidth: 100"
+          line__2="start: -1.25 0.25 0.1; end: -0.85 0.95 0.1; color: red; linewidth: 100"
+          line__3="start:  -0.85 0.95 0.1; end: 0 0.95 0.1; color: red; linewidth: 100"
+          line__4="start:  0 0.95 0.1; end: 1.5 0.65 0.1; color: red; linewidth: 100"
+          line__5="start:  1.5 0.65 0.1; end: 1.5 -0.45 0.1; color: red; linewidth: 100"
+          line__6="start: 1.5 -0.45 0.1; end: 0 -0.85 0.1; color: red; linewidth: 100"
+          line__7="start:0 -0.85 0.1; end: -1.0 -0.85 0.1; color: red; linewidth: 100"
+          line__8="start: -1.0 -0.85 0.1; end: -1.5 0 0.1; color: red; linewidth: 100"
         ></a-entity>
 
         {/* perso 1 */}
@@ -190,7 +206,9 @@ const ModeViewAR = (props) => {
                 position={`${((Math.PI*record.pos.lng / 180) *3/2).toFixed(3)} ${((Math.PI*record.pos.lat / 180) * 2/2).toFixed(3)} 0.5`}
                 scale="0.1 0.1 0.1"
                 src="#avatarModel"
+                onClick={handleClick}
                 // animation={`property: position; from: ${x1} ${y1} ${z1} ; to: ${x2} ${y2} ${z2};dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
+                animation={`property: position; from: ${((Math.PI*record.pos.lng / 180) *3/2).toFixed(3)}  ${((Math.PI*record.pos.lat / 180) * 2/2).toFixed(3)} 0.5 ; to: ${((Math.PI*record.pos.lng / 180) *3/2 +1).toFixed(3)}  ${((Math.PI*record.pos.lat / 180) * 2/2 +1 ).toFixed(3)} 0.5;dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
               ></a-gltf-model>
             );
           }
