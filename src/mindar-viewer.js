@@ -138,8 +138,8 @@ const ModeViewAR = (props) => {
         <a-plane
           src="#card"
           position="0 0 0"
-          height="2" //y
-          width="3" //x
+          height="1" //y
+          width="2" //x
           rotation="0 0 0"
         ></a-plane>
 
@@ -179,7 +179,7 @@ const ModeViewAR = (props) => {
         ></a-entity>
 
         <a-entity
-          line="start: -1.5 0 0.1; end: -1.25 0.25 0.1; color: red; linewidth: 100"
+          line="start: -1.5 0 0.1; end: -1.25 0.25 0.1; color: red; linewidth: 100; height=1.5"
           line__2="start: -1.25 0.25 0.1; end: -0.85 0.95 0.1; color: red; linewidth: 100"
           line__3="start:  -0.85 0.95 0.1; end: 0 0.95 0.1; color: red; linewidth: 100"
           line__4="start:  0 0.95 0.1; end: 1.5 0.65 0.1; color: red; linewidth: 100"
