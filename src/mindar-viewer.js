@@ -103,14 +103,14 @@ const ModeViewAR = (props) => {
 
   var speed = 5000;
 
-  {person.data.map((record) => {
-    {
-      return (
-        console.log(`${((Math.PI*record.pos.lng / 180) *3/2 +1 ).toFixed(3)} ${((Math.PI*record.pos.lat /180) * 2/2 + 1).toFixed(3)} 0.5`)
+  // {person.data.map((record) => {
+  //   {
+  //     return (
+  //       console.log(`${((Math.PI*record.pos.lng / 180) *3/2 +1 ).toFixed(3)} ${((Math.PI*record.pos.lat /180) * 2/2 + 1).toFixed(3)} 0.5`)
       
-      );
-    }
-  })}
+  //     );
+  //   }
+  // })}
 
   return (
     
@@ -139,7 +139,7 @@ const ModeViewAR = (props) => {
           src="#card"
           position="0 0 0"
           height="1" //y
-          width="2" //x
+          width="1" //x
           rotation="0 0 0"
         ></a-plane>
 
@@ -203,12 +203,12 @@ const ModeViewAR = (props) => {
             return (
               <a-gltf-model
                 rotation="0 0 0"
-                position={`${((Math.PI*record.pos.lng / 180) *3/2).toFixed(3)} ${((Math.PI*record.pos.lat / 180) * 2/2).toFixed(3)} 0.5`}
+                position={`${((Math.PI*record.pos.lng / 180) *1/2).toFixed(3)} ${((Math.PI*record.pos.lat / 180) * 1/2).toFixed(3)} 0.5`}
                 scale="0.1 0.1 0.1"
                 src="#avatarModel"
                 onClick={handleClick}
                 // animation={`property: position; from: ${x1} ${y1} ${z1} ; to: ${x2} ${y2} ${z2};dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
-                animation={`property: position; from: ${((Math.PI*record.pos.lng / 180) *3/2).toFixed(3)}  ${((Math.PI*record.pos.lat / 180) * 2/2).toFixed(3)} 0.5 ; to: ${((Math.PI*record.pos.lng / 180) *3/2 +1).toFixed(3)}  ${((Math.PI*record.pos.lat / 180) * 2/2 +1 ).toFixed(3)} 0.5;dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
+                animation={`property: position; from: ${((Math.PI*record.pos.lng / 180) *1/2).toFixed(3)}  ${((Math.PI*record.pos.lat / 180) * 1/2).toFixed(3)} 0.5 ; to: ${((Math.PI*record.pos.lng / 180) *1/2 +1).toFixed(3)}  ${((Math.PI*record.pos.lat / 180) * 1/2 +1 ).toFixed(3)} 0.5;dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
               ></a-gltf-model>
             );
           }
