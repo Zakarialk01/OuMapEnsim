@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/OuMapEnsim/static/css/main.639b5a0b.chunk.css",
-    "main.js": "/OuMapEnsim/static/js/main.43bbff02.chunk.js",
-    "main.js.map": "/OuMapEnsim/static/js/main.43bbff02.chunk.js.map",
+    "main.js": "/OuMapEnsim/static/js/main.b219a901.chunk.js",
+    "main.js.map": "/OuMapEnsim/static/js/main.b219a901.chunk.js.map",
     "runtime-main.js": "/OuMapEnsim/static/js/runtime-main.7854bc6d.js",
     "runtime-main.js.map": "/OuMapEnsim/static/js/runtime-main.7854bc6d.js.map",
     "static/js/2.b3a3b148.chunk.js": "/OuMapEnsim/static/js/2.b3a3b148.chunk.js",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.7854bc6d.js",
     "static/js/2.b3a3b148.chunk.js",
     "static/css/main.639b5a0b.chunk.css",
-    "static/js/main.43bbff02.chunk.js"
+    "static/js/main.b219a901.chunk.js"
   ]
 }
