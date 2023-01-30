@@ -4,6 +4,7 @@ import 'aframe';
 import 'mind-ar/dist/mindar-image-aframe.prod.js';
 import './App.css';
 import ModeViewAR from "./mindar-viewer";
+import Navbar from './components/Navbar';
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
       <h1>
         Example React component with{" "}
         <a href="https://github.com/hiukim/mind-ar-js" target="_blank">
