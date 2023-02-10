@@ -7,9 +7,17 @@ import person from './person.json';
 
 //cette fontionnalité va déclencher quand on active le mode AR et ça met à jour chaque 5s avec de nouvelles données (3 axes X,Y,Z)
 const ModeViewAR = (props) => {
-  const handleClick = useCallback(() => {
-    console.log('object clicked!');
-  },[]);
+  const [color, setColor] = useState("blue");
+  // const handleClick = useCallback((newValue) => {
+  //   //console.log('object clicked!');
+  //   setColor(color === "red" ? "blue" : "red");
+  // },[]);
+
+  const handleClick = () => {
+    //console.log('object clicked!');
+    setColor("red");
+    console.log(`${color}`);
+  };
 
 
   const sceneRef = useRef(null);
@@ -30,6 +38,8 @@ const ModeViewAR = (props) => {
   var xx1 = -1.5;
   var yy1;
   var zz1;
+
+
 
   let timer;
 
@@ -73,29 +83,37 @@ const ModeViewAR = (props) => {
   //   {x:1.0, y:0.675,z:0.1}
   // ];
   useEffect(() => {
-    let incrementTime = 5000;
-    timer = setInterval(() => {
-      var min = 0;
-      var max = 1;
-      var rand = min + Math.random() * (max - min);
-      var xx2 = -1.5;
-      //mettre à jour les values en utilisant state
+
+    const box = document.querySelector("#box");
+    box.addEventListener("click", handleClick);
+    console.log(`${color}`);
+    // return () => {
+    //   box.removeEventListener("click", handleClick);
+    // };
+
+    // let incrementTime = 5000;
+    // timer = setInterval(() => {
+    //   var min = 0;
+    //   var max = 1;
+    //   var rand = min + Math.random() * (max - min);
+    //   var xx2 = -1.5;
+    //   //mettre à jour les values en utilisant state
      
-      setX1(xx1);
-      // setY1(y1 + 0.01);
-      // setZ1(z1 + 0.01);
-      xx1 = xx1 + 0.1;
-      setX2(xx1);
-      // setY2(y1 + 0.02);
-      // setZ2(z1 + 0.02);
+    //   setX1(xx1);
+    //   // setY1(y1 + 0.01);
+    //   // setZ1(z1 + 0.01);
+    //   xx1 = xx1 + 0.1;
+    //   setX2(xx1);
+    //   // setY2(y1 + 0.02);
+    //   // setZ2(z1 + 0.02);
 
-      // console.log(`after 5s x1 ${x1} ${y1} ${z1} ${rand}`);
-      // console.log(`after 5s x2 ${x2} ${y1} ${z1}`);
+    //   // console.log(`after 5s x1 ${x1} ${y1} ${z1} ${rand}`);
+    //   // console.log(`after 5s x2 ${x2} ${y1} ${z1}`);
 
-      //garder des valeurs anciennes
+    //   //garder des valeurs anciennes
 
-      //mettre à jour les values en utilisant state
-    }, incrementTime);
+    //   //mettre à jour les values en utilisant state
+    // }, incrementTime);
    
     // return () => clearInterval(timer);
 
@@ -129,22 +147,31 @@ const ModeViewAR = (props) => {
         <a-asset-item id="avatarModel" src={hellboy}></a-asset-item>
         <a-asset-item id="flagModel" src={flag}></a-asset-item>
       </a-assets>
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+    
+      <a-camera position="0 0 0" look-controls="enabled: false ;pointerLockEnabled: true;" >
+  <a-cursor scale="1 1" color="red"></a-cursor>
+</a-camera>
 
       {/* une scène pour dessiner les points intérêts sur la carte  */}
 
       {/* une scène pour afficher les étudiant */}
-      <a-entity mindar-image-target="targetIndex: 0">
+      <a-entity   mindar-image-target="targetIndex: 0">
         <a-plane
           src="#card"
           position="0 0 0"
-          height="3" //y
-          width="2" //x
+          height="0.75" //y
+          width="1" //x
           rotation="0 0 0"
         ></a-plane>
 
+        {/* <a-box id="box" color={`${color}`} depth="0.5" height="0.5" width="0.25" position="0 0 0" onClick={handleClick} ></a-box> */}
+        <a-box id="box" color={`${color}`} depth="0.5" height="0.5" width="0.25" position="0 0 0"  change-color="color: red"  ></a-box>
+        {/* <a-box id="box" color="red" depth="0.5" height="0.5" width="0.25" position="0 0 0" onClick={handleClick} ></a-box> */}
+
+
+
         {/* afficher les flags pour déterminer des points intérets */}
-        <a-gltf-model
+        {/* <a-gltf-model
           rotation="0 270 0 "
           position="-1.5 0 0.1"
           scale="0.3 0.3 0.3"
@@ -164,10 +191,10 @@ const ModeViewAR = (props) => {
           position="1.5 0.75 0.1"
           scale="0.3 0.3 0.3"
           src="#flagModel"
-        ></a-gltf-model>
+        ></a-gltf-model> */}
 
         {/* Pour afficher le trajet à réaliser par des  */}
-        <a-entity
+        {/* <a-entity
           line="start: -1.5 0 0.1; end: -1.25 -0.15 0.1; color: green;"
           line__2="start: -1.25 -0.15 0.1; end: -1.05 -0.35 0.1; color: green"
           line__3="start: -1.05 -0.35 0.1; end: -0.05 -0.75 0.1; color: green"
@@ -187,7 +214,12 @@ const ModeViewAR = (props) => {
           line__6="start: 1.5 -0.45 0.1; end: 0 -0.85 0.1; color: red;"
           line__7="start:0 -0.85 0.1; end: -1.0 -0.85 0.1; color: red;"
           line__8="start: -1.0 -0.85 0.1; end: -1.5 0 0.1; color: red;"
-        ></a-entity>
+        ></a-entity> */}
+
+        {/* <a-entity
+          line={`"start: -0.5 0 0.1; end: -0.25 0.25 0.1; color: ${color};" `}
+        
+        ></a-entity>  */}
 
         {/* perso 1 */}
         {/* <a-gltf-model
@@ -195,10 +227,11 @@ const ModeViewAR = (props) => {
           position="-1 0 0.5"
           scale="0.3 0.3 0.3"
           src="#avatarModel"
+          onClick={handleClick}
           animation={`property: position; from: ${x1} ${y1} ${z1} ; to: ${x2} ${y2} ${z2};dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
         ></a-gltf-model> */}
 
-        {person.data.map((record) => {
+        {/* {person.data.map((record) => {
           {
             return (
               <a-gltf-model
@@ -206,13 +239,14 @@ const ModeViewAR = (props) => {
                 position={`${((Math.PI*record.pos.lng / 180) *1/2).toFixed(3)} ${((Math.PI*record.pos.lat / 180) * 1/2).toFixed(3)} 0.5`}
                 scale="0.1 0.1 0.1"
                 src="#avatarModel"
-                onClick={handleClick}
+                // onClick={handleClick}
+                
                 // animation={`property: position; from: ${x1} ${y1} ${z1} ; to: ${x2} ${y2} ${z2};dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
                 animation={`property: position; from: ${((Math.PI*record.pos.lng / 180) *1/2).toFixed(3)}  ${((Math.PI*record.pos.lat / 180) * 1/2).toFixed(3)} 0.5 ; to: ${((Math.PI*record.pos.lng / 180) *1/2 +1).toFixed(3)}  ${((Math.PI*record.pos.lat / 180) * 1/2 +1 ).toFixed(3)} 0.5;dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
               ></a-gltf-model>
             );
           }
-        })}
+        })} */}
 
         {/* perso 2 */}
         {/* <a-gltf-model

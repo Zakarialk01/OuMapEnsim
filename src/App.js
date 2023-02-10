@@ -7,6 +7,8 @@ import ModeViewAR from "./mindar-viewer";
 import Navbar from './components/Navbar';
 
 
+
+
 function App() {
   const [started, setStarted] = useState(false);
   const [x, setX] = useState(1);
