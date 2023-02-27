@@ -3,6 +3,7 @@ import map from "./assets/myMap.jpg";
 import sms1 from "./assets/sms1.jpg";
 import telephone1 from "./assets/telephone1.jpg";
 import hellboy from "./assets/hellboy.glb";
+import stickman from "./assets/stickman.glb";
 import flag from "./assets/flag.glb";
 import person from './person.json';
 
@@ -90,13 +91,26 @@ const ModeViewAR = (props) => {
   // ];
   useEffect(() => {
 
-    // const box = document.querySelector("#box");
-    // box.addEventListener("click",event => {
-    //   setColor(color === "red" ? "blue" : "red");
-    //   setIsClick(isClick ? false : true);
-    //   console.log(`color = ${color}`);
-    //   console.log(`isClick = ${isClick}`);
-    // });
+    const box = document.querySelector("#box");
+    box.addEventListener("click",event => {
+      setColor(color === "red" ? "blue" : "red");
+      setIsClick(isClick ? false : true);
+      console.log(`color = ${color}`);
+      console.log(`isClick = ${isClick}`);
+    });
+
+    if(isClick) {
+      const call = document.querySelector("#btnCall");
+      call.addEventListener("click",event => {
+      window.open('https://wa.me/33659577133','_blank', 'noreferrer');
+      });
+
+      const sms = document.querySelector("#btnSms");
+      sms.addEventListener("click",event => {
+      window.open('https://wa.me/33712954862','_blank', 'noreferrer');
+      });
+    }
+   
 
 
     // let incrementTime = 5000;
@@ -151,11 +165,11 @@ const ModeViewAR = (props) => {
     >
       <a-assets>
         <img id="card" src={map} />
+        <img id="tele" src={telephone1} />
+        <img id="sms" src={sms1} />
 
-        <a-asset-item id="avatarModel" src={hellboy}></a-asset-item>
+        <a-asset-item id="avatarModel" src={stickman}></a-asset-item>
         <a-asset-item id="flagModel" src={flag}></a-asset-item>
-        <a-asset-item id="teleModel" src={telephone1}></a-asset-item>
-        <a-asset-item id="smsModel" src={sms1}></a-asset-item>
       </a-assets>
     
       {/* <a-camera position="0 0 0" look-controls="enabled: false ;pointerLockEnabled: true;" >
@@ -185,39 +199,38 @@ const ModeViewAR = (props) => {
                       }}     
                       >
         </a-box> */}
-        <a-circle color="white" src="#teleModel" radius="0.025" position="0.25 0.25 0" ></a-circle>
-        <a-circle color="white" src="#smsModel" radius="0.025" position="0.5 0.5 0" ></a-circle>
-        {/* <a-box id="box" color={`${color}`} depth="0.5" height="0.5" width="0.25" position="0 0 0" class="clickable" ></a-box>
+       
+        {/* <a-box id="box" color={`${color}`} depth="0.5" height="0.5" width="0.25" position="0 0 0" class="clickable" ></a-box> */}
         {isClick ? 
-          <a-circle src="#teleModel" radius="2.5" position="0.25 0.25 0" ></a-circle> : null }   
+          <a-circle id="btnCall" color="black" src="#tele" radius="0.025" position="0.25 0.25 0" class="clickable" ></a-circle> : null }   
         {isClick ? 
-          <a-circle src="#smsModel" radius="2.5" position="-0.25 0.25 0" ></a-circle> : null }    */}
+          <a-circle id="btnSms" color="black" src="#sms" radius="0.025" position="0.35 0.25 0"  class="clickable"></a-circle> : null }   
         
 
 
 
         {/* afficher les flags pour déterminer des points intérets */}
-        {/* <a-gltf-model
+        <a-gltf-model
           rotation="0 270 0 "
-          position="-1.5 0 0.1"
-          scale="0.3 0.3 0.3"
+          position="-0.5 0 0.1"
+          scale="0.1 0.1 0.1"
           src="#flagModel"
           color="red"
         ></a-gltf-model>
 
         <a-gltf-model
           rotation="0 270 0 "
-          position="0.2 -0.75 0.1"
-          scale="0.3 0.3 0.3"
+          position="0.01 -0.375 0.1"
+          scale="0.1 0.1 0.1"
           src="#flagModel"
         ></a-gltf-model>
 
         <a-gltf-model
           rotation="0 270 0 "
-          position="1.5 0.75 0.1"
-          scale="0.3 0.3 0.3"
+          position="0.5 0.15 0.1"
+          scale="0.1 0.1 0.1"
           src="#flagModel"
-        ></a-gltf-model> */}
+        ></a-gltf-model>
 
         {/* Pour afficher le trajet à réaliser par des  */}
         {/* <a-entity
@@ -248,14 +261,16 @@ const ModeViewAR = (props) => {
         ></a-entity>  */}
 
         {/* perso 1 */}
-        {/* <a-gltf-model
+        <a-gltf-model
           rotation="0 0 0 "
           position="-1 0 0.5"
-          scale="0.3 0.3 0.3"
+          scale="0.001 0.001 0.001"
           src="#avatarModel"
-          onClick={handleClick}
-          animation={`property: position; from: ${x1} ${y1} ${z1} ; to: ${x2} ${y2} ${z2};dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
-        ></a-gltf-model> */}
+          class="clickable"
+          id="box"
+          // animation={`property: position; from: ${x1} ${y1} ${z1} ; to: ${x2} ${y2} ${z2};dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
+          animation={`property: position; from: -0.5 0 0.5 ; to: -0 0 0.5;dur:${speed}; easing: easeInOutQuad; loop: true; dir: alternate`}
+        ></a-gltf-model>
 
         {/* {person.data.map((record) => {
           {
