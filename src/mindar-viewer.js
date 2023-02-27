@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import map from "./assets/myMap.jpg";
+import sms1 from "./assets/sms1.jpg";
+import telephone1 from "./assets/telephone1.jpg";
 import hellboy from "./assets/hellboy.glb";
 import flag from "./assets/flag.glb";
 import person from './person.json';
@@ -8,17 +10,21 @@ import person from './person.json';
 //cette fontionnalité va déclencher quand on active le mode AR et ça met à jour chaque 5s avec de nouvelles données (3 axes X,Y,Z)
 const ModeViewAR = (props) => {
   const [color, setColor] = useState("blue");
+  const [isClick, setIsClick] = useState(false);
   // const handleClick = useCallback((newValue) => {
   //   //console.log('object clicked!');
   //   setColor(color === "red" ? "blue" : "red");
   // },[]);
 
-  const handleClick = () => {
-    //console.log('object clicked!');
-    setColor("red");
-    console.log(`${color}`);
-  };
+  // const handleClick = () => {
+  //   //console.log('object clicked!');
+  //   setColor("red");
+  //   console.log(`${color}`);
+  // };
 
+  const handleClick = () => {
+    setColor(color === "red" ? "blue" : "red");
+  };
 
   const sceneRef = useRef(null);
   //6 properties old X,Y,Z and new X,Y,Z
@@ -65,12 +71,12 @@ const ModeViewAR = (props) => {
       [arSystem]
     );
 
-
     return () => {
       arSystem.stop();
-      clearInterval(timer);
+      //clearInterval(timer);
     };
   }, []);
+
   //ça fonctionne encore quand on coupe la caméra
   // var litNumber = [{x:-1.5, y:0,z:0.1},
   //   {x:-1.5, y:0,z:0.1},
@@ -84,12 +90,14 @@ const ModeViewAR = (props) => {
   // ];
   useEffect(() => {
 
-    const box = document.querySelector("#box");
-    box.addEventListener("click", handleClick);
-    console.log(`${color}`);
-    // return () => {
-    //   box.removeEventListener("click", handleClick);
-    // };
+    // const box = document.querySelector("#box");
+    // box.addEventListener("click",event => {
+    //   setColor(color === "red" ? "blue" : "red");
+    //   setIsClick(isClick ? false : true);
+    //   console.log(`color = ${color}`);
+    //   console.log(`isClick = ${isClick}`);
+    // });
+
 
     // let incrementTime = 5000;
     // timer = setInterval(() => {
@@ -117,7 +125,7 @@ const ModeViewAR = (props) => {
    
     // return () => clearInterval(timer);
 
-  }, [x1, y1, z1, x2, y2, z2]);
+  }, [x1, y1, z1, x2, y2, z2,color,isClick]);
 
   var speed = 5000;
 
@@ -146,11 +154,14 @@ const ModeViewAR = (props) => {
 
         <a-asset-item id="avatarModel" src={hellboy}></a-asset-item>
         <a-asset-item id="flagModel" src={flag}></a-asset-item>
+        <a-asset-item id="teleModel" src={telephone1}></a-asset-item>
+        <a-asset-item id="smsModel" src={sms1}></a-asset-item>
       </a-assets>
     
-      <a-camera position="0 0 0" look-controls="enabled: false ;pointerLockEnabled: true;" >
+      {/* <a-camera position="0 0 0" look-controls="enabled: false ;pointerLockEnabled: true;" >
   <a-cursor scale="1 1" color="red"></a-cursor>
-</a-camera>
+</a-camera> */}
+<a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable"></a-camera>
 
       {/* une scène pour dessiner les points intérêts sur la carte  */}
 
@@ -163,10 +174,25 @@ const ModeViewAR = (props) => {
           width="1" //x
           rotation="0 0 0"
         ></a-plane>
-
         {/* <a-box id="box" color={`${color}`} depth="0.5" height="0.5" width="0.25" position="0 0 0" onClick={handleClick} ></a-box> */}
-        <a-box id="box" color={`${color}`} depth="0.5" height="0.5" width="0.25" position="0 0 0"  change-color="color: red"  ></a-box>
-        {/* <a-box id="box" color="red" depth="0.5" height="0.5" width="0.25" position="0 0 0" onClick={handleClick} ></a-box> */}
+        {/* <a-box id="box" color={`${color}`} depth="0.5" height="0.5" width="0.25" position="0 0 0" 
+              // events={{
+              //           click: () => setColor("red"),
+              //         }}
+              event-set__click="material.color: yellow; scale: 2 2 2"
+                  events={{
+                        click: () => setColor("red"),
+                      }}     
+                      >
+        </a-box> */}
+        <a-circle color="white" src="#teleModel" radius="0.025" position="0.25 0.25 0" ></a-circle>
+        <a-circle color="white" src="#smsModel" radius="0.025" position="0.5 0.5 0" ></a-circle>
+        {/* <a-box id="box" color={`${color}`} depth="0.5" height="0.5" width="0.25" position="0 0 0" class="clickable" ></a-box>
+        {isClick ? 
+          <a-circle src="#teleModel" radius="2.5" position="0.25 0.25 0" ></a-circle> : null }   
+        {isClick ? 
+          <a-circle src="#smsModel" radius="2.5" position="-0.25 0.25 0" ></a-circle> : null }    */}
+        
 
 
 
@@ -262,6 +288,9 @@ const ModeViewAR = (props) => {
           // animation={`property: position; from: -1 0 0.5; to: 0 1.25 0.95;dur:4000; easing: easeInOutQuad; loop: true; dir: alternate`}
         ></a-gltf-model> */}
       </a-entity>
+      
+
+
     </a-scene>
   );
 }; 

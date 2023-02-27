@@ -2284,6 +2284,13 @@
     "loader-utils" "^2.0.0"
     "regex-parser" "^2.2.11"
 
+"aframe-event-set-component@^5.0.0":
+  "integrity" "sha512-O9Bhs8Qu2cEilXQ6F2xUxxJIbaZEA2atdIxTwq5qPHRHaIa+8ZghkirUBicNs92aHR9QQwk6ZnRx+SmBXi+B9Q=="
+  "resolved" "https://registry.npmjs.org/aframe-event-set-component/-/aframe-event-set-component-5.0.0.tgz"
+  "version" "5.0.0"
+  dependencies:
+    "debug" "^2.6.9"
+
 "aframe@^1.3.0":
   "integrity" "sha512-f6OQaDf49SzdSxVskJPvPWldOwHpYMsGttmQHhU6FRiASsnyULKG1nqZom9pDuS3fFYEzQVqRMakQ2AhXeLkFg=="
   "resolved" "https://registry.npmjs.org/aframe/-/aframe-1.3.0.tgz"
@@ -7842,7 +7849,7 @@
   "version" "2.1.2"
 
 "ms@2.0.0":
-  "integrity" "sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g="
+  "integrity" "sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A=="
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
   "version" "2.0.0"
 
