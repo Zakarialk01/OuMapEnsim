@@ -58,17 +58,27 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <h1>
-        Example React component with{" "}
-        <a href="https://github.com/hiukim/mind-ar-js" target="_blank">
-          MindAR
-        </a>
+     <section class="bg-indigo-700 text-white">
+  <div
+    class="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center"
+  >
+    <div class="mx-auto max-w-3xl text-center">
+      <h1
+        class="text-3xl font-extrabold text-white sm:text-5xl"
+      >
+       Mode Réalité Augmentée
+
+        <span class="sm:block"> Ou-map </span>
       </h1>
+
+      <p class="mx-auto mt-4 max-w-xl sm:text-xl sm:leading-relaxed">
+       PourSuivre l'état d'avancement des étudiant, veuillez activer la caméra pour passer en mode AR sur le plan IGN
+      </p>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
       
-      <div>
-        {/* {!started && <button onClick={() => {setStarted(true)}}>Start</button>} */}
-        {!started && <button onClick={changeValue}>Start</button>}
-        {started && (
+          {!started && <button  class="block w-full rounded border border-indigo-900 bg-indigo-900 px-12 py-3 text-sm font-medium text-white hover:bg-indigo-800 hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto" onClick={changeValue}>Start</button>}
+       {started && (
           <button
             onClick={() => {
               setStarted(false);
@@ -78,9 +88,14 @@ function App() {
             Stop
           </button>
         )}
+        <a
+          class="block w-full rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
+          href="/about"
+        >
+          Mode Normal
+        </a>
       </div>
-
-      {started && (
+ {started && (
         <div className="container">
           {/* <MindARViewer/> */}
           <ModeViewAR
@@ -96,6 +111,13 @@ function App() {
           <video></video>
         </div>
       )}
+    </div>
+  </div>
+</section>
+     
+     
+
+   
     </div>
   );
 }
