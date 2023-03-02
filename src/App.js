@@ -72,7 +72,7 @@ function App() {
       </h1>
 
       <p class="mx-auto mt-4 max-w-xl sm:text-xl sm:leading-relaxed">
-       PourSuivre l'état d'avancement des étudiant, veuillez activer la caméra pour passer en mode AR sur le plan IGN
+       Poursuivre l'état d'avancement des étudiant, veuillez activer la caméra pour passer en mode AR sur le plan IGN
       </p>
 
       <div class="mt-8 flex flex-wrap justify-center gap-4">
