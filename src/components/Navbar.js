@@ -2,7 +2,7 @@ import React from 'react'
 export default function Navbar() {
 	const [navbarOpen, setNavbarOpen] = React.useState(false);
 	return (
-		<header aria-label="Site Header" className="shadow-md shadow-gray-500">
+		<header aria-label="Site Header" className="drop-shadow-md shadow-md shadow-white">
 			<div
 				class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 "
 			>
